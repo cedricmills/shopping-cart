@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Cart</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Cost</th>
+                <th>QTY</th>
+                <th>Cancel</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="cart-body">
+            <!-- Cart items will be appended here -->
+        </tbody>
+    </table>
+    <p>Total Price: <span id="total-price">0</span></p>
+    <button id="add-item">Add Item</button>
+    <button id="calculate-prices">Calculate Prices</button>
+
+    <script>
+        $(document).ready(function() {
+            // Add item to cart
+            $(document).on('click', '.cancel-item', function() {
+                $(this).parent().parent().remove();
+                updateTotalPrice();
+            });
+
+            $(document).on('input', '.quantity-input', function() {
+                updateItemTotal($(this));
+                updateTotalPrice();
+            });
+
+            $('#add-item').click(function() {
+                addItemToCart();
+            });
+
+            $('#calculate-prices').click(function() {
+                updateTotalPrice();
+            });
+
+            function addItemToCart() {
+                $('#cart-body').append(`
+                    <tr>
+                        <td><input type="text" class="item-name" value="Item"></td>
+                        <td><input type="number" class="item-cost" value="0"></td>
+                        <td><input type="number" class="quantity-input" value="0"></td>
+                        <td><button class="cancel-item">Cancel</button></td>
+                        <td class="item-total">0</td>
+                    </tr>
+                `);
+            }
+
+            function updateItemTotal(inputElement) {
+                const quantity = Number(inputElement.val());
+                const cost = Number(inputElement.parent().prev().find('.item-cost').val());
+                const total = quantity * cost;
+                inputElement.parent().next().next().next().text(total);
+            }
+
+            function updateTotalPrice() {
+                let totalPrice = 0;
+                $('.item-total').each(function() {
+                    totalPrice += Number($(this).text());
+                });
+                $('#total-price').text(totalPrice);
+            }
+        });
+    </script>
+</body>
+</html>
