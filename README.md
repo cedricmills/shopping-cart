@@ -1,1 +1,2 @@
-# shopping-cart
+# Author: Cedric Mills
+# Title: shopping-cart
