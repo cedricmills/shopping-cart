@@ -10,6 +10,9 @@ $(document).ready(function() {
         updateTotalPrice();
     });
 
+    // TODO:
+    // changing item cost should also trigger updateItemTotal
+
     $('#add-item').click(function() {
         addItemToCart();
         updateTotalPrice();
@@ -36,10 +39,11 @@ $(document).ready(function() {
     console.log(fooTd.length);
 
     function updateItemTotal(inputElement) {
+        console.log(inputElement)
         const quantity = Number(inputElement.val());
         const cost = Number(inputElement.parent().prev().find('.item-cost').val());
         const total = quantity * cost;
-        inputElement.parent().next().next().next().text(total);
+        inputElement.parent().next().next().text(total);
         console.log(quantity);
         console.log(cost);
         console.log(total);
@@ -50,7 +54,7 @@ $(document).ready(function() {
         console.log("Updating total price...");
         let totalPrice = 0;
         $('.item-total').each(function() {
-            
+            console.log($(this).text());
             totalPrice += Number($(this).text());
         });
         console.log("Total price:", totalPrice);
