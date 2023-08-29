@@ -31,6 +31,7 @@ $(document).ready(function() {
         `);
     }
     
+    
     let fooTd = $('td.item-total');
     console.log(fooTd.length);
 
