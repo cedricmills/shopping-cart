@@ -7,7 +7,7 @@ $(document).ready(function() {
 
     $(document).on('input', '.quantity-input', function() {
         updateItemTotal($(this));
-        updateTotalPrice();
+        // updateTotalPrice();
     });
 
     // TODO:
@@ -15,11 +15,12 @@ $(document).ready(function() {
 
     $('#add-item').click(function() {
         addItemToCart();
-        updateTotalPrice();
+        // updateTotalPrice();
     });
 
     $('#calculate-prices').click(function() {
         updateTotalPrice();
+        totalBudget();
     });
 
     function addItemToCart() {
@@ -35,8 +36,8 @@ $(document).ready(function() {
     }
     
     
-    let fooTd = $('td.item-total');
-    console.log(fooTd.length);
+    //let fooTd = $('td.item-total');
+    //console.log(fooTd.length);
 
     function updateItemTotal(inputElement) {
         console.log(inputElement)
@@ -60,4 +61,13 @@ $(document).ready(function() {
         console.log("Total price:", totalPrice);
         $('#total-price').text(totalPrice);
     }
+
+    function totalBudget(ele) {
+        const shopBudget = parseFloat($(ele).children('.shopping-budget input').val());
+        console.log("Shopping Budget: " + shopBudget);
+        $(ele).children('#test').html(shopBudget);
+        
+    }
+
+    
 });
