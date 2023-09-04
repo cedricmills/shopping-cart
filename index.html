@@ -11,9 +11,10 @@
 </head>
 
 <body>
-    <h1>Simple Shopping Cart</h1>
-    <table>
-        <thead>
+    <h1 class="mb-2 display-3">Simple Shopping Cart</h1>
+    <div class="table-resopnsive">
+    <table class="table table-striped table-borderless table-hover">
+        <thead class="table-success">
             <tr>
                 <th>Item</th>
                 <th>Cost</th>
@@ -26,9 +27,10 @@
             <!-- Cart items will be here using append-->
         </tbody>
     </table>
-    <p>Total Price: <span id="total-price">0</span></p>
-    <button id="add-item">Add Item</button>
-    <button id="calculate-prices">Calculate Prices</button>
+</div>
+    <p class="mb-2">Total Price: <span id="total-price">0</span></p>
+    <button class="btn btn-warning" id="add-item" class="text-center">Add Item</button>
+    <button class="btn btn-success" id="calculate-prices" class="text-center">Calculate Prices</button>
 
 </body>
 

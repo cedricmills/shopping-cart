@@ -25,10 +25,10 @@ $(document).ready(function() {
     function addItemToCart() {
         $('#cart-body').append(`
             <tr>
-                <td><input type="text" class="item-name" value="Item"></td>
-                <td><input type="number" class="item-cost" value="0"></td>
-                <td><input type="number" class="quantity-input" value="0"></td>
-                <td><button class="cancel-item">Cancel</button></td>
+                <td><input type="text" class="form-control item-name" value="Add Item Here"></td>
+                <td><input type="number" class="form-control item-cost" value="0"></td>
+                <td><input type="number" class="form-control  quantity-input" value="0"></td>
+                <td><button class="btn btn-outline-danger active cancel-item">Cancel</button></td>
                 <td class="item-total">0</td>
             </tr>
         `);
