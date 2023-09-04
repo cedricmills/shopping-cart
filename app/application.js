@@ -43,11 +43,7 @@ $(document).ready(function() {
         console.log(inputElement)
         const quantity = Number(inputElement.val());
         const cost = Number(inputElement.parent().prev().find('.item-cost').val());
-<<<<<<< HEAD
-        const total = quantity * cost;
-=======
         const total = (quantity * cost).toFixed(2); //round total to 2 decimals
->>>>>>> develop
         inputElement.parent().next().next().text(total);
         console.log(quantity);
         console.log(cost);
