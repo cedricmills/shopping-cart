@@ -3,9 +3,24 @@
 
 body {
   font-family: 'Raleway', sans-serif;
-  
+  /* background-color:rgba(255, 167, 91, 0.521); */
 }
 
 button{
   font-weight: 600;
 }
+
+img{
+  position: fixed;
+  z-index: -1;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+}
+
+
+/* #img-1{
+    background: url(/img/clipart-food-soup-12.png);
+    background-size: 400px 400px;
+    background-repeat: no-repeat;  
+} */

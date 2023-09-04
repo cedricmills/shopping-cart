@@ -7,7 +7,7 @@ $(document).ready(function() {
 
     $(document).on('input', '.quantity-input', function() {
         updateItemTotal($(this));
-        updateTotalPrice();
+        // updateTotalPrice();
     });
 
     // TODO:
@@ -15,7 +15,7 @@ $(document).ready(function() {
 
     $('#add-item').click(function() {
         addItemToCart();
-        updateTotalPrice();
+        // updateTotalPrice();
     });
 
     $('#calculate-prices').click(function() {
@@ -41,7 +41,7 @@ $(document).ready(function() {
         console.log(inputElement)
         const quantity = Number(inputElement.val());
         const cost = Number(inputElement.parent().prev().find('.item-cost').val());
-        const total = quantity * cost;
+        const total = (quantity * cost).toFixed(2); //round total to 2 decimals
         inputElement.parent().next().next().text(total);
         console.log(quantity);
         console.log(cost);
@@ -56,6 +56,7 @@ $(document).ready(function() {
             console.log($(this).text());
             totalPrice += Number($(this).text());
         });
+        totalPrice = totalPrice.toFixed(2); //round the totalPrice to 2 dec1mals
         console.log("Total price:", totalPrice);
         $('#total-price').text(totalPrice);
     }
