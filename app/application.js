@@ -26,10 +26,10 @@ $(document).ready(function() {
     function addItemToCart() {
         $('#cart-body').append(`
             <tr>
-                <td><input type="text" class="item-name" value="Item"></td>
-                <td><input type="number" class="item-cost" value="0"></td>
-                <td><input type="number" class="quantity-input" value="0"></td>
-                <td><button class="cancel-item">Cancel</button></td>
+                <td><input type="text" class="form-control item-name" value="Add Item Here"></td>
+                <td><input type="number" class="form-control item-cost" value="0"></td>
+                <td><input type="number" class="form-control  quantity-input" value="0"></td>
+                <td><button class="btn btn-outline-danger active cancel-item">Cancel</button></td>
                 <td class="item-total">0</td>
             </tr>
         `);
@@ -43,7 +43,11 @@ $(document).ready(function() {
         console.log(inputElement)
         const quantity = Number(inputElement.val());
         const cost = Number(inputElement.parent().prev().find('.item-cost').val());
+<<<<<<< HEAD
         const total = quantity * cost;
+=======
+        const total = (quantity * cost).toFixed(2); //round total to 2 decimals
+>>>>>>> develop
         inputElement.parent().next().next().text(total);
         console.log(quantity);
         console.log(cost);
@@ -58,6 +62,7 @@ $(document).ready(function() {
             console.log($(this).text());
             totalPrice += Number($(this).text());
         });
+        totalPrice = totalPrice.toFixed(2); //round the totalPrice to 2 dec1mals
         console.log("Total price:", totalPrice);
         $('#total-price').text(totalPrice);
     }
