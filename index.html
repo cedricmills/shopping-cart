@@ -6,37 +6,121 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="css/custom.css" rel="stylesheet" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="app/application.js"></script>
-  
 </head>
 
 <body>
-   
-<h1 class="mb-2 display-3">Simple Shopping Cart</h1>
-<div class="table-resopnsive">
-<table class="table table-striped table-borderless table-hover">
-        <thead class="table-success">
-            <tr>
-                <th>Item</th>
-                <th>Cost</th>
-                <th>QTY</th>
-                <th>Cancel</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody id="cart-body">
-            <!-- Cart items will be here using append-->
-        </tbody>
-    </table>
-</div>
-<p class="mb-3 display-4">Total Price: <span id="total-price">0</span></p>
-<button class="btn btn-warning" id="add-item" class="text-center">Add Item</button>
-<button class="btn btn-success" id="calculate-prices" class="text-center">Calculate Prices</button>
 
-<img src="/img/clipart-food-soup-12.png" alt="groceries" width="400" height="400">
-<!-- <div id="img-1"></div> -->
+<div class="container">
+    <h1 class="mb-2 display-3">Simple Shopping Cart</h1>
+        <div class="table-resopnsive">
+            <table class="table table-striped table-borderless table-hover">
+                <thead class="table-success">
+                    <tr>
+                        <th>Item</th>
+                        <th>Cost</th>
+                        <th>QTY</th>
+                        <th>Cancel</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-body">
+                  
+                </tbody>
+             </table>
+        </div>
+    <p class="mb-3 display-4">Total Price: <span id="total-price">0</span></p>
+    <button class="btn btn-warning" id="add-item" class="text-center">Add Item</button>
+    <button class="btn btn-success" id="calculate-prices" class="text-center">Calculate Prices</button>
+</div>
 
 </body>
+<script>
+$(function() {
+
+    $(document).on('input', '.quantity-input', function () {
+        // updateItemTotal($(this));
+        updateItemTotalFromCost($(this));
+        updateTotalPrice();  
+    });
+    // TODO:
+    // changing item cost should also trigger updateItemTotal 
+    $(document).on('input', '.item-cost', function () {
+        updateItemTotal($(this));
+        updateTotalPrice();
+    });
+
+    $('#add-item').on('click', function() {
+        addItemToCart();
+        updateTotalPrice();
+    });
+
+    $('#calculate-prices').on('click', function() {
+        updateItemTotal($(this))
+        updateTotalPrice();  
+    });     
+    
+    $(document).on('click', '.cancel-item', function() {
+        $(this).parent().parent().remove();
+        updateItemTotal($(this))
+        updateTotalPrice();
+    });
+    
+    
+});
+
+function addItemToCart() {
+  $('#cart-body').append(`
+      <tr>
+          <td><input type="text" class="form-control item-name" placeholder="Add Item Here"></td>
+          <td><input type="number" class="form-control item-cost" value="0"></td>
+          <td><input type="number" class="form-control  quantity-input" value="0"></td>
+          <td><button class="btn btn-danger btn-sm active cancel-item">Delete</button></td>
+          <td class="item-total">0</td>
+      </tr>
+  `);
+}
+
+function updateTotalPrice() {
+  let totalPrice = 0;
+
+  $('#cart-body tr').each(function () {
+    const itemTotalText = $(this).find('.item-total').text(); 
+    const itemTotal = parseFloat(itemTotalText.replace(/[^\d\.-]/g, '')); // Remove non-numeric characters
+
+    if (!isNaN(itemTotal)) {
+      totalPrice += itemTotal;
+    } else {
+      console.log("Invalid item total:", itemTotalText);
+    }
+  });
+
+  totalPrice = totalPrice.toFixed(2);
+  console.log("Total price:", totalPrice);
+  $('#total-price').text(totalPrice);
+}
+
+function updateItemTotal(inputElement) {
+  const quantity = Number(inputElement.closest('tr').find('.quantity-input').val());
+  const cost = Number(inputElement.closest('tr').find('.item-cost').val());
+  const total = (quantity * cost).toFixed(2);
+  const itemTotalTd = inputElement.closest('tr').find('.item-total');
+
+  itemTotalTd.text(total);
+  updateTotalPrice(); // Trigger total price update
+}
 
 
+function updateItemTotalFromCost(inputElement) {
+    const parentTr = inputElement.closest('tr'); 
+    const quantity = Number(parentTr.find('.quantity-input').val());
+    const cost = Number(inputElement.val());
+    const total = (quantity * cost).toFixed(2);
+    const itemTotalTd = parentTr.find('.item-total');
+    const cancelButton = itemTotalTd.prev().find('.cancel-item');
+
+    itemTotalTd.text(total);
+  
+    console.log("Quantity:", quantity, "Cost:", cost, "Total:", total);
+}
+</script>
 </html>
