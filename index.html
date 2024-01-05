@@ -38,8 +38,7 @@
 $(function() {
 
     $(document).on('input', '.quantity-input', function () {
-        // updateItemTotal($(this));
-        updateItemTotalFromCost($(this));
+        updateItemTotal($(this));
         updateTotalPrice();  
     });
     // TODO:
